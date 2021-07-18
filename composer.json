@@ -8,6 +8,8 @@
         "php": "^7.3|^8.0",
         "backpack/crud": "^4.1",
         "backpack/pagemanager": "^3.0",
+        "backpack/revise-operation": "^1.0",
+        "capeandbay-devs/nautical-integrator": "dev-master",
         "consoletvs/charts": "^7.2",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -39,7 +41,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "helpers/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -69,5 +74,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/capeandbay-devs/nautical-integrator"
+        }
+    ]
 }

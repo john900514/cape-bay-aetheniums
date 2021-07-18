@@ -1,0 +1,49 @@
+{
+  "name": "capeandbay-devs/nautical-integrator",
+  "description": "AnchorCMS API Interface for Laravel",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "capeandbay",
+    "anchorcms"
+  ],
+  "authors": [
+    {
+      "name": "Angel Gonzalez",
+      "email": "angel@capeandbay.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^7.4|^8.0",
+    "ramsey/uuid": "^4.1",
+    "ixudra/curl": "^6.21",
+    "firebase/php-jwt": "^5.4",
+    "tymon/jwt-auth": "^1.0.2",
+    "laravel/framework": "^8.0",
+    "guzzlehttp/guzzle": "^7.0.1",
+    "silber/bouncer": "v1.0.0-rc.10",
+    "lorisleiva/laravel-actions": "^2.1",
+    "goldspecdigital/laravel-eloquent-uuid": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AnchorCMS\\Nautical\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AnchorCMS\\Nautical\\NauticalServiceProvider"
+      ],
+      "aliases": {
+        "Nautical": "AnchorCMS\\Nautical\\Facades\\Nautical"
+      }
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}

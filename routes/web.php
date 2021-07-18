@@ -13,6 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('errors.404');
-});
+Route::get('library/login', \App\Actions\Auth\SendBackToAnchor::class);
