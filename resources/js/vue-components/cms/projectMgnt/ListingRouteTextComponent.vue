@@ -12,10 +12,11 @@
             selectedLib(lib) {
                 console.log('selectedLib ', lib);
                 console.log('project routes  ', this.libraryRoutes);
-                let r = this.libraryRoutes[lib];
+                if(this.libraryRoutes !== undefined) {
+                    let r = this.libraryRoutes[lib];
 
-                this.urlPartOfTheText = r.replace('libraries','projects');
-
+                    this.urlPartOfTheText = r.replace('libraries','projects');
+                }
             },
         },
         data() {
@@ -43,7 +44,8 @@
         mounted() {
             console.log('Listing Route', this.preloadedValue);
             if(this.preloadedValue !== '') {
-                this.inputText = this.preloadedValue;
+                console.log('Preloaded fucking value', this.preloadedValue)
+                //this.urlPartOfTheText = this.preloadedValue;
             }
         }
     }

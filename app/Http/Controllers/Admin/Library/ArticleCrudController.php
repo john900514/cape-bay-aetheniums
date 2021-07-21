@@ -41,9 +41,14 @@ class ArticleCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+
+        CRUD::column('name');
+        CRUD::column('topic_id');
+        CRUD::column('topic.project')->labe('Project');
+        CRUD::column('active')->type('boolean');
 
         /**
+         *
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);

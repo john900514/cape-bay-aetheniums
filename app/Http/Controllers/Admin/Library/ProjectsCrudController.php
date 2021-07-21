@@ -71,7 +71,7 @@ class ProjectsCrudController extends CrudController
         CRUD::field('name')->type('text')->label('Name')->wrapper(['class' => 'col-md-6']);
         CRUD::field('icon')->type('text')->wrapper(['class' => 'col-md-6']);
         CRUD::field('library_id')->label('Library')->type('projects.select2_project_mgnt_library')->wrapper(['class' => 'col-md-12']);
-        CRUD::field('misc[slug]')->type('projects.text_project_mgnt_slug')->wrapper(['class' => 'col-md-6']);
+        CRUD::field('misc[slug]')->label('Slug')->type('projects.text_project_mgnt_slug')->wrapper(['class' => 'col-md-6']);
         CRUD::field('listing_route')->type('projects.text_project_mgnt_listing_route')->wrapper(['class' => 'col-md-6']);
         CRUD::field('desc')->type('text')->wrapper(['class' => 'col-md-12']);
         CRUD::field('misc[priority]')->label('Priority')->type('number')->wrapper(['class' => 'col-md-6']);
