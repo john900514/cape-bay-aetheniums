@@ -1,9 +1,15 @@
 <template>
     <div>
-        <select class="xy" :name="name" v-model="selectedLibrary">
+        <select class="xy" :name="name" v-model="selectedLibrary" v-if="libraries !== ''">
             <option value="" disabled>{{ nullValueLabel }}</option>
             <option v-if="libraries !== ''" v-for="(name, id) in libraries" :value="id">{{ name }}</option>
         </select>
+        <div v-if="libraries === ''">
+            <select class="x" id="goFuckYourself" :name="name" v-model="selectedLibrary" disabled>
+                <option value="">{{ nullValueLabel }}</option>
+            </select>
+        </div>
+
     </div>
 
 </template>
@@ -22,13 +28,14 @@
                 else {
                     let _this = this;
                     this.nullValueLabel = 'Select a Library';
+
                     setTimeout(function () {
                         $('.xy').select2({
                             theme: "bootstrap"
                         }).on('select2:select', function(e) {
                             _this.selectedLibrary = $(this).val();
                         });
-                    }, 500)
+                    }, 100)
                 }
             },
             libraryOptions(options) {
@@ -44,7 +51,8 @@
             return {
                 nullValueLabel: 'Loading Libraries..',
                 selectedLibrary: '',
-                libraries: ''
+                libraries: '',
+                hideFake: false
             }
         },
         computed: {
@@ -68,7 +76,7 @@
             console.log('Library Select!', this.token);
             this.setToken(this.token);
             this.getLibs();
-            $('.xy').select2({
+            $('.x').select2({
                 theme: "bootstrap"
             })
             console.log('Library Select! Mounted');
@@ -81,7 +89,7 @@
 </script>
 
 <style scoped>
-    .xy, .xz {
+    .xy, .x {
         width: 100%;
     }
 </style>

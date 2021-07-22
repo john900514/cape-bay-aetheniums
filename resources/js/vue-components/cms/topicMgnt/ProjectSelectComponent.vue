@@ -4,9 +4,11 @@
             <option value="" disabled>Select a Project</option>
             <option  v-for="(name, id) in pjs" :value="id">{{ name }}</option>
         </select>
-        <select class="w" :name="name" v-model="selectedProject" v-else disabled>
-            <option value="" disabled >Requires Library Selection</option>
-        </select>
+        <div v-if="pjs === ''">
+            <select class="w" :name="name" v-model="selectedProject"  disabled>
+                <option value="" disabled >Requires Library Selection</option>
+            </select>
+        </div>
     </div>
 </template>
 
@@ -20,7 +22,8 @@
             availableProjects(options) {
                 console.log('new project options', options);
                 if(this.showFake) {
-                    $('.w').select2('destroy');
+                    console.log('W  bro');
+                    //$('.w').data('select2').destroy();
                     this.showFake = false;
                 }
 

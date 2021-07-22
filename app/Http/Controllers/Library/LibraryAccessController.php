@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Library;
 
 use App\Actions\Aetheniums\Content\GenerateContentLayout;
 use App\Actions\Dashboards\Developer\GetCnBLibraryDashboardViewData;
+use App\Actions\Dashboards\Developer\GetGenericLibraryDashboardViewData;
 use App\Actions\Dashboards\Developer\GetHomeDashboardViewData;
 use App\Http\Controllers\Controller;
 use App\Models\Content\Page;
@@ -91,6 +92,34 @@ class LibraryAccessController extends Controller
                         'active_client' => '25f6972a-c0e5-43a5-adfc-cf58b4f8c189',
                         'library_id' => '988decb9-eb60-4315-bbbc-6ba8e0f906c4'
                     ];
+                    break;
+
+                case 'admin':
+                case 'ad-ops':
+                case 'executive':
+                case 'gm':
+                default:
+                    $blade = 'errors.401';
+            }
+        }
+        catch(\Exception $e)
+        {
+            $blade = 'errors.404';
+        }
+
+        return view($blade, $data);
+    }
+
+    public function generic_library_access($slug)
+    {
+        $data = [];
+
+        try {
+            switch(backpack_user()->getRoles()[0])
+            {
+                case 'developer':
+                    $blade = 'library.dashboards.generic.'.backpack_user()->getRoles()[0].'-library-dashboard';
+                    $data  = GetGenericLibraryDashboardViewData::run(backpack_user()->id, $slug);
                     break;
 
                 case 'admin':

@@ -16,6 +16,7 @@ Route::group([
 ], function () { // custom admin routes
     Route::get('libraries/cnb', 'LibraryAccessController@cnb_library_access');
     Route::get('libraries/trufit', 'LibraryAccessController@trufit_library_access');
+    Route::get('libraries/{others}', 'LibraryAccessController@generic_library_access');
 
     Route::get('projects/cnb/{project}', 'LibraryAccessController@cnb_project_access');
     Route::get('projects/cnb/{project}/topics', 'LibraryAccessController@cnb_topic_access');

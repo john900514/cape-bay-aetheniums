@@ -64,15 +64,17 @@
         })
     </script>
 
+  <!--
     <style>
         .app-footer div {
           color: #161c2d!important;
         }
 
+        /*
         .app-footer a {
           color: #fff !important;
         }
-
+        */
         .app-header.bg-light .navbar-brand {
           width: 200px;
           justify-content: left;
@@ -90,5 +92,6 @@
           font-weight: 600;
         }
     </style>
+    -->
 </body>
 </html>

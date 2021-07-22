@@ -26,6 +26,9 @@ export default {
         })
     },
     mounted() {
+        if((this.preloadedValue !== '') || this.preloadedValue !== undefined){
+            this.inputText = this.preloadedValue;
+        }
         console.log('Doops we are here!')
     }
 }

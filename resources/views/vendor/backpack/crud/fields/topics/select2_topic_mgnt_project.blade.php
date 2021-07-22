@@ -30,7 +30,7 @@
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
         <!-- include select2 js-->
-        <script src="{{ asset('https://amchorcms-assets.s3.amazonaws.com/backpack_packages/select2/dist/js/select2.full.min.js') }}"></script>
+        <script src="https://amchorcms-assets.s3.amazonaws.com/backpack_packages/select2/dist/js/select2.full.min.js"></script>
         @if (app()->getLocale() !== 'en')
             <script src="{{ asset('https://amchorcms-assets.s3.amazonaws.com/backpack_packages/select2/dist/js/i18n/' . str_replace('_', '-', app()->getLocale()) . '.js') }}"></script>
         @endif

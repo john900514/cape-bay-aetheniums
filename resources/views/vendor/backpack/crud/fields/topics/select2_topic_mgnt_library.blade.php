@@ -29,7 +29,7 @@
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-
+        <!-- <script src="https://amchorcms-assets.s3.amazonaws.com/backpack_packages/select2/dist/js/select2.full.min.js"></script> -->
     @endpush
 @endif
 {{-- End of Extra CSS and JS --}}

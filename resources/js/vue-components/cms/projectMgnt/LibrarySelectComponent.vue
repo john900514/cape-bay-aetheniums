@@ -5,7 +5,6 @@
             <option v-if="libraries !== ''" v-for="(name, id) in libraries" :value="id">{{ name }}</option>
         </select>
     </div>
-
 </template>
 
 <script>
@@ -66,9 +65,11 @@
             console.log('Library Select!', this.token);
             this.setToken(this.token);
             this.getLibs();
-            $('.xy').select2({
-                theme: "bootstrap"
-            })
+            setTimeout(function () {
+                $('.xy').select2({
+                    theme: "bootstrap"
+                });
+            }, 250)
             console.log('Library Select! Mounted');
 
             if(this.preloadedValue !== '') {
