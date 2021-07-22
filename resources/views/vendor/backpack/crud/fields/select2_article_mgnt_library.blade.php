@@ -4,7 +4,7 @@
     <library-select
             name="{{ $field['name'] }}"
             token="{!! session()->get('user_backend_api_token') !!}"
-            preloaded-value="{!! $field['value'] ?? '' !!}"
+            preloaded-value="{!! $field['value'] ?? 'undefined' !!}"
     ></library-select>
 {{-- HINT --}}
 @if (isset($field['hint']))
@@ -29,7 +29,7 @@
 
     {{-- FIELD JS - will be loaded in the after_scripts section --}}
     @push('crud_fields_scripts')
-
+        <script src="https://amchorcms-assets.s3.amazonaws.com/backpack_packages/select2/dist/js/select2.full.min.js"></script>
     @endpush
 @endif
 {{-- End of Extra CSS and JS --}}

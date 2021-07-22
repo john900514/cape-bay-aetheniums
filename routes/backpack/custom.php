@@ -20,12 +20,12 @@ Route::group([
 
     Route::get('projects/cnb/{project}', 'LibraryAccessController@cnb_project_access');
     Route::get('projects/cnb/{project}/topics', 'LibraryAccessController@cnb_topic_access');
-    Route::get('projects/cnb/{project}/articles/{article}', 'LibraryAccessController@view_article');
+    Route::get('projects/cnb/{project}/articles/{article}', 'LibraryAccessController@view_specific_article');
 
 
     Route::get('projects/trufit/{project}', 'LibraryAccessController@trufit_project_access');
     Route::get('projects/trufit/{project}/topics', 'LibraryAccessController@trufit_topic_access');
-    Route::get('projects/trufit/{project}/articles/{article}', 'LibraryAccessController@view_article');
+    Route::get('projects/trufit/{project}/articles/{article}', 'LibraryAccessController@view_specific_article');
     // if any specific libraries are gonna be hardcoded, they start right below this line
 
     // if any specific libraries are gonna be hardcoded, they need to go above this line

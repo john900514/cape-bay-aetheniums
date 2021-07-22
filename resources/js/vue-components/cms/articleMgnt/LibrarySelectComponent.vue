@@ -4,6 +4,11 @@
             <option value="" disabled>{{ nullValueLabel }}</option>
             <option v-if="libraries !== ''" v-for="(name, id) in libraries" :value="id">{{ name }}</option>
         </select>
+        <div v-if="libraries === ''">
+            <select class="x" id="goFuckYourself" :name="name" v-model="selectedLibrary" disabled>
+                <option value="">{{ nullValueLabel }}</option>
+            </select>
+        </div>
     </div>
 
 </template>
@@ -68,7 +73,7 @@
             console.log('Library Select!', this.token);
             this.setToken(this.token);
             this.getLibs();
-            $('.xy').select2({
+            $('.x').select2({
                 theme: "bootstrap"
             })
             console.log('Library Select! Mounted');

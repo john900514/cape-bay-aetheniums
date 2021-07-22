@@ -578,7 +578,7 @@ class LibraryAccessController extends Controller
         return view($blade, $data);
     }
 
-    public function view_article($project_slug, $article_id, Article $articles, Page $pages)
+    public function view_specific_article($project_slug, $article_id, Article $articles, Page $pages)
     {
         $data = [
             'view' => backpack_view('blank'),
@@ -598,6 +598,62 @@ class LibraryAccessController extends Controller
                 $blade = 'library.templates.'.$post->template;
 
                 // Get the article's topic, project and library
+                $topic   = $article['topic'];
+                $project = $topic['project'];
+                $library = $project['library'];
+
+                // Populate the breadcrumb data Library -> Project -> Topic -> Article
+                $data['breadcrumbs'] = [
+                    $library['name'] => url($library['listing_route']),
+                    $project['name'] => url($project['listing_route']),
+                    $topic['name']   => url($topic['listing_route']),
+                    $post->name      => false
+                ];
+
+                // Curate boilerplate date for all templates
+                $data['title'] = $post->title;
+                $data['subheading'] = $article->desc;
+                $data['go_back_url'] = url($topic['listing_route']).'?topic='.$topic['id'];
+                $data['go_back_text'] = $topic['name'];
+                $data['project_id'] = $project['id'];
+
+                // Generate the Template Specific Data
+                $data['content'] = GenerateContentLayout::run($post);
+            }
+            else
+            {
+                $blade = 'errors.401';
+            }
+        }
+        else
+        {
+            $blade = 'errors.404';
+        }
+
+        return view($blade, $data);
+    }
+
+    public function view_article($library, $project_slug, $article_id, Article $articles, Page $pages)
+    {
+        $data = [
+            'view' => backpack_view('blank'),
+            'page_shown' => 'articles',
+        ];
+
+        if($this->request->has('slug'))
+        {
+            $article = $articles->whereId($article_id)
+                ->with('topic')
+                ->first();
+
+            $post = $pages->whereSlug($this->request->get('slug'))->first();
+
+            if(true)
+            {
+                $blade = 'library.templates.'.$post->template;
+
+                // Get the article's topic, project and library
+                
                 $topic   = $article['topic'];
                 $project = $topic['project'];
                 $library = $project['library'];

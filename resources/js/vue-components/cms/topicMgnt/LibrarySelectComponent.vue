@@ -5,7 +5,7 @@
             <option v-if="libraries !== ''" v-for="(name, id) in libraries" :value="id">{{ name }}</option>
         </select>
         <div v-if="libraries === ''">
-            <select class="x" id="goFuckYourself" :name="name" v-model="selectedLibrary" disabled>
+            <select class="x" :name="name" v-model="selectedLibrary" disabled>
                 <option value="">{{ nullValueLabel }}</option>
             </select>
         </div>
