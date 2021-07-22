@@ -2,7 +2,7 @@
 @include('crud::fields.inc.wrapper_start')
 
 <twilio-style-content-creator name="{!! $field['name'] !!}"
-                              :preloaded-value="{{ $field['value'] ?? json_encode('') }}"
+                              :preloaded-value="{{ $field['value'] ?? 'undefined' }}"
 ></twilio-style-content-creator>
 
 @include('crud::fields.inc.wrapper_end')

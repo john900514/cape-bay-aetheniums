@@ -246,6 +246,60 @@ class LibraryAccessController extends Controller
         return view($blade, $data);
     }
 
+    public function generic_project_access($library, $project, Project $projects, Library $libraries)
+    {
+        $data = [];
+
+        try {
+            switch(backpack_user()->getRoles()[0])
+            {
+                case 'developer':
+                    $blade = 'library.dashboards.generic.'.backpack_user()->getRoles()[0].'-projects-dashboard';
+
+                    $project_record = $projects->whereListingRoute('/library/projects/'.$library.'/'.$project)->first();
+
+                    if(!is_null($project_record))
+                    {
+                        $library_record = $libraries->find($project_record->library_id);
+
+                        if(!is_null($library_record))
+                        {
+                            $data = [
+                                'page_shown' => 'projects',
+                                'active_client' => '',
+                                'library_id' => $project_record->library_id,
+                                'project_id' => $project_record->id,
+                                'library' => $library_record->toArray(),
+                                'project' => $project_record->toArray()
+                            ];
+                        }
+                        else
+                        {
+                            // @todo - error scenario bad library
+                        }
+                    }
+                    else
+                    {
+                        // @todo - error scenario bad project
+                    }
+                    break;
+
+                case 'admin':
+                case 'ad-ops':
+                case 'executive':
+                case 'gm':
+                default:
+                    $blade = 'errors.401';
+            }
+        }
+        catch(\Exception $e)
+        {
+            $blade = 'errors.404';
+        }
+
+        return view($blade, $data);
+    }
+
     public function cnb_topic_access($project, Topic $topics, Project $projects, Library $libraries)
     {
         $data = [];
@@ -356,6 +410,99 @@ class LibraryAccessController extends Controller
                         if(!is_null($topic_record))
                         {
                             $project_record = $projects->whereListingRoute('/library/projects/trufit/'.$project)->first();
+
+                            if(!is_null($project_record))
+                            {
+                                if($topic_record->project_id == $project_record->id)
+                                {
+                                    $library_record = $libraries->find($project_record->library_id);
+
+                                    if(!is_null($library_record))
+                                    {
+                                        $articles = [];
+
+                                        foreach($topic_record->articles as $article)
+                                        {
+                                            $page_post = $article->page_post();
+                                            $article = $article->toArray();
+                                            $article['page_post'] = $page_post;
+                                            $articles[] = $article;
+                                        }
+
+                                        $data = [
+                                            'page_shown' => 'topics',
+                                            'active_client' => '',
+                                            'topic_id' => $topic_record->id,
+                                            'library_id' => $project_record->library_id,
+                                            'project_id' => $project_record->id,
+                                            'library' => $library_record->toArray(),
+                                            'project' => $project_record->toArray(),
+                                            'topic' => $topic_record->toArray(),
+                                            'articles' => $articles
+                                        ];
+                                    }
+                                    else
+                                    {
+                                        // @todo - error scenario bad library
+                                    }
+                                }
+                                else
+                                {
+                                    // @todo - error scenario mismatched project/topic
+                                    $blade = 'errors.501';
+                                }
+                            }
+                            else
+                            {
+                                // @todo - error scenario bad project
+                            }
+                        }
+                        else
+                        {
+                            // @todo - error scenario bad topic_id
+                        }
+                    }
+                    else
+                    {
+                        // A topic property is required in the url
+                        $blade = 'errors.500';
+                    }
+                    break;
+
+                case 'admin':
+                case 'ad-ops':
+                case 'executive':
+                case 'gm':
+                default:
+                    $blade = 'errors.401';
+            }
+        }
+        catch(\Exception $e)
+        {
+            $blade = 'errors.404';
+        }
+
+        return view($blade, $data);
+    }
+
+    public function generic_topic_access($library, $project, Topic $topics, Project $projects, Library $libraries)
+    {
+        $data = [];
+
+        try {
+            switch(backpack_user()->getRoles()[0])
+            {
+                case 'developer':
+                    $blade = 'library.dashboards.generic.'.backpack_user()->getRoles()[0].'-topics-dashboard';
+
+                    if($this->request->has('topic'))
+                    {
+                        $topic_record = $topics->whereId($this->request->get('topic'))
+                            ->with('articles')->first();
+
+                        if(!is_null($topic_record))
+                        {
+                            $project_record = $projects->whereListingRoute('/library/projects/'.$library.'/'.$project)->first();
 
                             if(!is_null($project_record))
                             {

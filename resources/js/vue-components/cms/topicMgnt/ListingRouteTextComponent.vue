@@ -14,7 +14,7 @@
                 this.inputText = '/library';
             },
             selectedProj(proj) {
-                this.inputText = this.projectRoutes[proj];
+                this.inputText = this.projectRoutes[proj] + '/topics';
             },
             selectedTopic(topic) {
                 this.inputText = this.inputText + '/articles'

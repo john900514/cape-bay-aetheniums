@@ -80,6 +80,7 @@
             },
             updateAmtOfSections() {
                 let c = 0
+                console.log('sections', this.sections);
                 for(let idx in this.sections) {
                     c++;
                 }
@@ -111,9 +112,10 @@
             },
         },
         mounted() {
-            if(this.preloadedValue !== '') {
+            if(this.preloadedValue !== '' && this.preloadedValue !== undefined) {
                 this.sections = this.preloadedValue;
                 this.updateAmtOfSections();
+                console.log('Mounted sections!', this.sections);
                 for(let x in this.sections) {
                     this.sectionLbl++;
                 }

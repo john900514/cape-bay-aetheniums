@@ -21,6 +21,15 @@
                 else {
                     let _this = this;
                     this.nullValueLabel = 'Select a Library';
+
+                    if(!this.preloaded) {
+                        if(this.preloadedValue !== '') {
+                            this.selectedLibrary = this.preloadedValue;
+                        }
+
+                        this.preloaded = true;
+                    }
+
                     setTimeout(function () {
                         $('.xy').select2({
                             theme: "bootstrap"
@@ -43,7 +52,8 @@
             return {
                 nullValueLabel: 'Loading Libraries..',
                 selectedLibrary: '',
-                libraries: ''
+                libraries: '',
+                preloaded: false,
             }
         },
         computed: {
@@ -72,9 +82,7 @@
             }, 250)
             console.log('Library Select! Mounted');
 
-            if(this.preloadedValue !== '') {
-                this.selectedLibrary = this.preloadedValue;
-            }
+
         }
     }
 </script>

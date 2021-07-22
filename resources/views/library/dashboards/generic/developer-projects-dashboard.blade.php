@@ -27,7 +27,7 @@
         $widgets['before_content'][] = [
             'type'        => 'smaller-jumbotron',
             'heading'     => $project['name'],
-            'content'     => 'A Project in the Cape & Bay Developer Library',
+            'content'     => 'A Project in the '.$library['name'].' Developer Library',
         ];
 @endphp
 

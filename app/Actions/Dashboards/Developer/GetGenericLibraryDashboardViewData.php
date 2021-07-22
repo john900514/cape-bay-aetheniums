@@ -17,6 +17,7 @@ class GetGenericLibraryDashboardViewData
         ];
 
         $lib_model = Library::where('misc->slug', '=', $slug)->first();
+        $results['library_id'] = $lib_model->id;
         $results['library_name'] = $lib_model->name;
 
 
