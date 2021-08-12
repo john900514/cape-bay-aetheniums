@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\Library;
 
 use App\Http\Requests\StandardRequest as TopicsRequest;
+use App\Models\LibraryOfBabble\Library;
+use App\Models\LibraryOfBabble\Project;
 use Backpack\ReviseOperation\ReviseOperation;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\StandardRequest as ProjectsRequest;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class ProjectsCrudController
@@ -48,8 +51,20 @@ class ProjectsCrudController extends CrudController
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
         CRUD::column('name')->type('text')->label('Project');
-        CRUD::column('library.name')->type('text')->label('Library');
+        CRUD::column('library.name')->type('text')->label('Library')->sortable(true);
         CRUD::column('active')->type('boolean');
+        $this->crud->addFilter(
+            [
+                'name'  => 'library',
+                'type'  => 'select2',
+                'label' => 'Libraries'
+            ], function () {
+            return Cache::get(backpack_user()->id.'-selectable-libraries', Library::crud_filter_menu());
+        }, function ($value) { // if the filter is active
+            $this->crud->addClause('where', 'library_id', $value);
+        }
+    );
+
         $this->crud->addButtonFromModelFunction('line', 'open_listing_route', 'open_listing_route', 'beginning');
     }
 

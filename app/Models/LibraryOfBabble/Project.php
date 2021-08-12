@@ -4,6 +4,8 @@ namespace App\Models\LibraryOfBabble;
 
 use App\Models\LibraryOfBabble\Library;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Silber\Bouncer\BouncerFacade as Bouncer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
