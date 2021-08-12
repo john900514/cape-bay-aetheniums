@@ -7,6 +7,7 @@ use App\Models\Clubs\Club;
 use App\Models\Customers\Leads;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Silber\Bouncer\BouncerFacade as Bouncer;
 
 class DashboardController extends Controller
@@ -23,11 +24,17 @@ class DashboardController extends Controller
         $data = [];
 
         try {
-            switch(backpack_user()->getRoles()[0])
+            $role = Cache::remember(backpack_user()->id.'-main-role', (60 * 30), function() {
+                return backpack_user()->getRoles()[0];
+            });
+            switch($role)
             {
                 case 'developer':
                     $blade = 'library.dashboards.'.backpack_user()->getRoles()[0].'-dashboard';
-                    $data  = GetHomeDashboardViewData::run(backpack_user()->id);
+                    $data  = Cache::remember(backpack_user()->id.'-dev-dashboard', (60 * 30), function() {
+                        return GetHomeDashboardViewData::run(backpack_user()->id);
+                    });
+
                     break;
 
                 case 'admin':
